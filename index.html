@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Matahiti Bar</title>
 
 <style>
 
@@ -21,6 +26,7 @@ left:0;
 width:100%;
 height:100%;
 object-fit:cover;
+z-index:1;
 }
 
 canvas{
@@ -39,35 +45,67 @@ z-index:10;
 }
 
 .buttons{
+
 position:fixed;
+
 bottom:55px;
+
 left:0;
+
 width:100%;
+
 display:flex;
+
 justify-content:center;
+
 align-items:center;
+
 gap:25px;
+
 z-index:20;
+
 }
 
 .photo{
-width:80px;
-height:80px;
+
+width:82px;
+
+height:82px;
+
 border-radius:50%;
+
 border:none;
+
 font-size:34px;
+
 background:white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
 box-shadow:0 0 20px rgba(0,0,0,0.4);
+
 }
 
 .insta{
-padding:18px 28px;
+
+padding:18px 30px;
+
 border:none;
+
 border-radius:40px;
+
 font-size:20px;
-background:white;
+
 font-weight:bold;
+
+background:white;
+
 box-shadow:0 0 20px rgba(0,0,0,0.4);
+
 }
 
 </style>
@@ -76,78 +114,148 @@ box-shadow:0 0 20px rgba(0,0,0,0.4);
 
 <body>
 
-<video id="video" autoplay playsinline></video>
+<video
+id="video"
+autoplay
+playsinline
+muted>
+</video>
 
 <canvas id="canvas"></canvas>
 
-<img src="overlay.png" class="overlay">
+<img
+src="overlay.png"
+class="overlay">
 
 <div class="buttons">
 
-<button class="photo" onclick="takePhoto()">
+<button
+class="photo"
+onclick="takePhoto()">
+
 📸
+
 </button>
 
-<button class="insta" onclick="openInstagramStory()">
+<button
+class="insta"
+onclick="openInstagramStory()">
+
 Instagram
+
 </button>
 
 </div>
 
 <script>
 
-const video = document.getElementById('video');
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const video =
+document.getElementById(
+'video'
+);
 
-navigator.mediaDevices.getUserMedia({
+const canvas =
+document.getElementById(
+'canvas'
+);
+
+const ctx =
+canvas.getContext(
+'2d'
+);
+
+navigator.mediaDevices
+.getUserMedia({
 
 video:{
+
 facingMode:{
 ideal:"environment"
 },
-aspectRatio:9/16
+
+aspectRatio:9/16,
+
+width:{
+ideal:1080
+},
+
+height:{
+ideal:1920
+}
+
 }
 
 })
 
 .then(stream=>{
 
-video.srcObject = stream;
+video.srcObject =
+stream;
+
+})
+
+.catch(error=>{
+
+alert(
+'Impossible d’ouvrir la caméra'
+);
 
 });
 
 function takePhoto(){
 
 canvas.width = 1080;
+
 canvas.height = 1920;
 
 ctx.drawImage(
+
 video,
+
 0,
+
 0,
+
 canvas.width,
+
 canvas.height
+
 );
 
-const overlay = document.querySelector('.overlay');
+const overlay =
+document.querySelector(
+'.overlay'
+);
 
 ctx.drawImage(
+
 overlay,
+
 0,
+
 0,
+
 canvas.width,
+
 canvas.height
+
 );
 
-const link = document.createElement('a');
-
-link.download = 'matahiti-story.png';
-
-link.href = canvas.toDataURL(
+const image =
+canvas.toDataURL(
 'image/png',
 1.0
 );
+
+const link =
+document.createElement(
+'a'
+);
+
+link.href = image;
+
+link.download =
+'matahiti-story.png';
 
 link.click();
 
@@ -155,13 +263,17 @@ link.click();
 
 function openInstagramStory(){
 
-window.location.href = 'instagram://camera';
+window.location.href =
+'instagram://camera';
 
 setTimeout(function(){
 
 window.open(
+
 'https://instagram.com/matahitibar.andernos',
+
 '_blank'
+
 );
 
 },1000);
