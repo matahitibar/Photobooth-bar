@@ -277,7 +277,7 @@ alert(
 
 });
 
-function takePhoto(){
+async function takePhoto(){
 
 canvas.width = 2160;
 
@@ -364,17 +364,87 @@ canvas.toDataURL(
 1.0
 );
 
-const link =
-document.createElement(
-'a'
-);
+const win =
+window.open();
 
-link.href = image;
+win.document.write(`
 
-link.download =
-'matahiti-4k-story.png';
+<html>
 
-link.click();
+<head>
+
+<title>Matahiti Story</title>
+
+<style>
+
+body{
+
+margin:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
+
+}
+
+img{
+
+width:100%;
+height:100%;
+object-fit:contain;
+
+}
+
+.save{
+
+position:fixed;
+
+bottom:40px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+padding:18px 28px;
+
+border-radius:40px;
+
+background:white;
+
+font-size:20px;
+
+font-family:sans-serif;
+
+text-decoration:none;
+
+color:black;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<img src="${image}">
+
+<a
+class="save"
+href="${image}"
+download="matahiti-story.png">
+
+Ajouter aux Photos
+
+</a>
+
+</body>
+
+</html>
+
+`);
 
 }
 
