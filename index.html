@@ -12,21 +12,44 @@ content="width=device-width, initial-scale=1.0">
 
 <style>
 
-body{
+html,body{
 margin:0;
+padding:0;
 overflow:hidden;
 background:black;
+width:100%;
+height:100%;
 font-family:sans-serif;
 }
 
-video{
+#container{
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
+overflow:hidden;
+background:black;
+}
+
+video{
+
+position:absolute;
+
+top:50%;
+
+left:50%;
+
+width:100vw;
+
+height:100vh;
+
 object-fit:cover;
+
+transform:translate(-50%,-50%);
+
 z-index:1;
+
 }
 
 canvas{
@@ -34,19 +57,28 @@ display:none;
 }
 
 .overlay{
-position:fixed;
+
+position:absolute;
+
 top:0;
+
 left:0;
+
 width:100%;
+
 height:100%;
+
 object-fit:cover;
+
 pointer-events:none;
+
 z-index:10;
+
 }
 
 .buttons{
 
-position:fixed;
+position:absolute;
 
 bottom:55px;
 
@@ -56,11 +88,13 @@ width:100%;
 
 display:flex;
 
-justify-content:center;
+justify-content:space-between;
+
+padding:0 35px;
+
+box-sizing:border-box;
 
 align-items:center;
-
-gap:25px;
 
 z-index:20;
 
@@ -68,17 +102,17 @@ z-index:20;
 
 .photo{
 
-width:82px;
+width:78px;
 
-height:82px;
+height:78px;
 
 border-radius:50%;
 
 border:none;
 
-font-size:34px;
-
 background:white;
+
+font-size:34px;
 
 display:flex;
 
@@ -92,17 +126,19 @@ box-shadow:0 0 20px rgba(0,0,0,0.4);
 
 .insta{
 
-padding:18px 30px;
+height:68px;
+
+padding:0 28px;
 
 border:none;
 
 border-radius:40px;
 
+background:white;
+
 font-size:20px;
 
 font-weight:bold;
-
-background:white;
 
 box-shadow:0 0 20px rgba(0,0,0,0.4);
 
@@ -113,6 +149,8 @@ box-shadow:0 0 20px rgba(0,0,0,0.4);
 </head>
 
 <body>
+
+<div id="container">
 
 <video
 id="video"
@@ -147,6 +185,8 @@ Instagram
 
 </div>
 
+</div>
+
 <script>
 
 const video =
@@ -171,16 +211,6 @@ video:{
 
 facingMode:{
 ideal:"environment"
-},
-
-aspectRatio:9/16,
-
-width:{
-ideal:1080
-},
-
-height:{
-ideal:1920
 }
 
 }
@@ -192,14 +222,6 @@ ideal:1920
 video.srcObject =
 stream;
 
-})
-
-.catch(error=>{
-
-alert(
-'Impossible d’ouvrir la caméra'
-);
-
 });
 
 function takePhoto(){
@@ -208,17 +230,59 @@ canvas.width = 1080;
 
 canvas.height = 1920;
 
+const videoRatio =
+video.videoWidth /
+video.videoHeight;
+
+const canvasRatio =
+1080 / 1920;
+
+let drawWidth;
+let drawHeight;
+let offsetX;
+let offsetY;
+
+if(videoRatio > canvasRatio){
+
+drawHeight = 1920;
+
+drawWidth =
+drawHeight *
+videoRatio;
+
+offsetX =
+(drawWidth - 1080)
+/ 2;
+
+offsetY = 0;
+
+}else{
+
+drawWidth = 1080;
+
+drawHeight =
+drawWidth /
+videoRatio;
+
+offsetX = 0;
+
+offsetY =
+(drawHeight - 1920)
+/ 2;
+
+}
+
 ctx.drawImage(
 
 video,
 
-0,
+-offsetX,
 
-0,
+-offsetY,
 
-canvas.width,
+drawWidth,
 
-canvas.height
+drawHeight
 
 );
 
@@ -235,9 +299,9 @@ overlay,
 
 0,
 
-canvas.width,
+1080,
 
-canvas.height
+1920
 
 );
 
