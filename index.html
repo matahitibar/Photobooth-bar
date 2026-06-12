@@ -364,10 +364,10 @@ canvas.toDataURL(
 1.0
 );
 
-const win =
+const newWindow =
 window.open();
 
-win.document.write(`
+newWindow.document.write(`
 
 <html>
 
@@ -377,15 +377,13 @@ win.document.write(`
 
 <style>
 
-body{
+html,body{
 
 margin:0;
+padding:0;
 background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
 overflow:hidden;
+height:100%;
 
 }
 
@@ -397,32 +395,6 @@ object-fit:contain;
 
 }
 
-.save{
-
-position:fixed;
-
-bottom:40px;
-
-left:50%;
-
-transform:translateX(-50%);
-
-padding:18px 28px;
-
-border-radius:40px;
-
-background:white;
-
-font-size:20px;
-
-font-family:sans-serif;
-
-text-decoration:none;
-
-color:black;
-
-}
-
 </style>
 
 </head>
@@ -430,15 +402,6 @@ color:black;
 <body>
 
 <img src="${image}">
-
-<a
-class="save"
-href="${image}"
-download="matahiti-story.png">
-
-Ajouter aux Photos
-
-</a>
 
 </body>
 
