@@ -5,7 +5,8 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>Matahiti Bar</title>
@@ -13,6 +14,7 @@ content="width=device-width, initial-scale=1.0">
 <style>
 
 html,body{
+
 margin:0;
 padding:0;
 overflow:hidden;
@@ -20,16 +22,23 @@ background:black;
 width:100%;
 height:100%;
 font-family:sans-serif;
+
 }
 
 #container{
+
 position:fixed;
+
 top:0;
 left:0;
+
 width:100%;
 height:100%;
+
 overflow:hidden;
+
 background:black;
+
 }
 
 video{
@@ -37,11 +46,9 @@ video{
 position:absolute;
 
 top:50%;
-
 left:50%;
 
 width:100vw;
-
 height:100vh;
 
 object-fit:cover;
@@ -53,7 +60,9 @@ z-index:1;
 }
 
 canvas{
+
 display:none;
+
 }
 
 .overlay{
@@ -61,11 +70,9 @@ display:none;
 position:absolute;
 
 top:0;
-
 left:0;
 
 width:100%;
-
 height:100%;
 
 object-fit:cover;
@@ -80,31 +87,35 @@ z-index:10;
 
 position:absolute;
 
-bottom:55px;
+top:50%;
 
 left:0;
 
 width:100%;
 
+transform:translateY(-50%);
+
 display:flex;
 
 justify-content:space-between;
 
-padding:0 35px;
+align-items:center;
+
+padding:0 12px;
 
 box-sizing:border-box;
 
-align-items:center;
-
 z-index:20;
+
+pointer-events:none;
 
 }
 
 .photo{
 
-width:78px;
+width:85px;
 
-height:78px;
+height:85px;
 
 border-radius:50%;
 
@@ -112,7 +123,7 @@ border:none;
 
 background:white;
 
-font-size:34px;
+font-size:38px;
 
 display:flex;
 
@@ -120,15 +131,17 @@ align-items:center;
 
 justify-content:center;
 
-box-shadow:0 0 20px rgba(0,0,0,0.4);
+box-shadow:0 0 30px rgba(0,0,0,0.5);
+
+pointer-events:auto;
 
 }
 
 .insta{
 
-height:68px;
+height:75px;
 
-padding:0 28px;
+padding:0 30px;
 
 border:none;
 
@@ -136,11 +149,13 @@ border-radius:40px;
 
 background:white;
 
-font-size:20px;
+font-size:22px;
 
 font-weight:bold;
 
-box-shadow:0 0 20px rgba(0,0,0,0.4);
+box-shadow:0 0 30px rgba(0,0,0,0.5);
+
+pointer-events:auto;
 
 }
 
@@ -211,6 +226,14 @@ video:{
 
 facingMode:{
 ideal:"environment"
+},
+
+width:{
+ideal:3840
+},
+
+height:{
+ideal:2160
 }
 
 }
@@ -222,20 +245,28 @@ ideal:"environment"
 video.srcObject =
 stream;
 
+})
+
+.catch(error=>{
+
+alert(
+'Impossible d’ouvrir la caméra'
+);
+
 });
 
 function takePhoto(){
 
-canvas.width = 1080;
+canvas.width = 2160;
 
-canvas.height = 1920;
+canvas.height = 3840;
 
 const videoRatio =
 video.videoWidth /
 video.videoHeight;
 
 const canvasRatio =
-1080 / 1920;
+2160 / 3840;
 
 let drawWidth;
 let drawHeight;
@@ -244,21 +275,21 @@ let offsetY;
 
 if(videoRatio > canvasRatio){
 
-drawHeight = 1920;
+drawHeight = 3840;
 
 drawWidth =
 drawHeight *
 videoRatio;
 
 offsetX =
-(drawWidth - 1080)
+(drawWidth - 2160)
 / 2;
 
 offsetY = 0;
 
 }else{
 
-drawWidth = 1080;
+drawWidth = 2160;
 
 drawHeight =
 drawWidth /
@@ -267,7 +298,7 @@ videoRatio;
 offsetX = 0;
 
 offsetY =
-(drawHeight - 1920)
+(drawHeight - 3840)
 / 2;
 
 }
@@ -299,9 +330,9 @@ overlay,
 
 0,
 
-1080,
+2160,
 
-1920
+3840
 
 );
 
@@ -319,7 +350,7 @@ document.createElement(
 link.href = image;
 
 link.download =
-'matahiti-story.png';
+'matahiti-4k-story.png';
 
 link.click();
 
