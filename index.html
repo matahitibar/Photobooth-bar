@@ -8,10 +8,13 @@ body{
 margin:0;
 overflow:hidden;
 background:black;
+font-family:sans-serif;
 }
 
-video{
+video,canvas{
 position:fixed;
+top:0;
+left:0;
 width:100%;
 height:100%;
 object-fit:cover;
@@ -28,16 +31,22 @@ pointer-events:none;
 z-index:10;
 }
 
-.text{
+.buttons{
 position:fixed;
 bottom:40px;
 width:100%;
-text-align:center;
-color:white;
-font-size:28px;
-font-family:sans-serif;
+display:flex;
+justify-content:center;
+gap:15px;
 z-index:20;
-text-shadow:0 0 10px black;
+}
+
+button{
+padding:15px 25px;
+border:none;
+border-radius:30px;
+font-size:18px;
+background:white;
 }
 </style>
 </head>
@@ -46,32 +55,68 @@ text-shadow:0 0 10px black;
 
 <video id="video" autoplay playsinline></video>
 
+<canvas id="canvas"></canvas>
+
 <img src="overlay.png" class="overlay">
 
-<div class="text">
-@matahitibar.andernos
+<div class="buttons">
+<button onclick="takePhoto()">📸 Photo</button>
+<button onclick="shareInstagram()">Instagram</button>
 </div>
 
 <script>
 
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
 navigator.mediaDevices.getUserMedia({
 video:{
 facingMode:{
-exact:"environment"
+ideal:"environment"
 }
 }
 })
-.then(function(stream){
-document.getElementById("video").srcObject = stream;
-})
-.catch(function(){
-navigator.mediaDevices.getUserMedia({
-video:true
-})
-.then(function(stream){
-document.getElementById("video").srcObject = stream;
+.then(stream=>{
+video.srcObject = stream;
 });
-});
+
+function takePhoto(){
+
+canvas.width = video.videoWidth;
+canvas.height = video.videoHeight;
+
+ctx.drawImage(video,0,0,canvas.width,canvas.height);
+
+const overlay = document.querySelector('.overlay');
+
+ctx.drawImage(
+overlay,
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+const link = document.createElement('a');
+
+link.download = 'matahiti-photo.png';
+
+link.href = canvas.toDataURL();
+
+link.click();
+
+alert('Photo sauvegardée 📸');
+}
+
+function shareInstagram(){
+
+window.open(
+'https://instagram.com/matahitibar.andernos',
+'_blank'
+);
+
+}
 
 </script>
 
