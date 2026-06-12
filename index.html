@@ -181,6 +181,87 @@ letter-spacing:2px;
 
 }
 
+.preview{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:black;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+flex-direction:column;
+
+z-index:999;
+
+}
+
+.preview img{
+
+width:100%;
+height:100%;
+
+object-fit:contain;
+
+}
+
+.storyButton{
+
+position:absolute;
+
+bottom:40px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+padding:18px 30px;
+
+border-radius:40px;
+
+border:2px solid white;
+
+background:rgba(255,255,255,0.1);
+
+backdrop-filter:blur(8px);
+
+color:white;
+
+font-size:20px;
+
+font-weight:bold;
+
+}
+
+.help{
+
+position:absolute;
+
+top:40px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+color:white;
+
+font-size:16px;
+
+text-align:center;
+
+opacity:0.8;
+
+}
+
 </style>
 
 </head>
@@ -214,13 +295,35 @@ onclick="takePhoto()">
 
 <button
 class="insta"
-onclick="openInstagramStory()">
+onclick="openInstagramStoryDirect()">
 
 INSTA STORY
 
 </button>
 
 </div>
+
+</div>
+
+<div
+class="preview"
+id="preview">
+
+<div class="help">
+
+Maintiens l’image → Ajouter aux Photos
+
+</div>
+
+<img id="previewImage">
+
+<button
+class="storyButton"
+onclick="openInstagramStory()">
+
+OUVRIR INSTAGRAM STORY
+
+</button>
 
 </div>
 
@@ -266,14 +369,6 @@ ideal:2160
 
 video.srcObject =
 stream;
-
-})
-
-.catch(error=>{
-
-alert(
-'Impossible d’ouvrir la caméra'
-);
 
 });
 
@@ -364,50 +459,17 @@ canvas.toDataURL(
 1.0
 );
 
-const newWindow =
-window.open();
+document
+.getElementById(
+'previewImage'
+)
+.src = image;
 
-newWindow.document.write(`
-
-<html>
-
-<head>
-
-<title>Matahiti Story</title>
-
-<style>
-
-html,body{
-
-margin:0;
-padding:0;
-background:black;
-overflow:hidden;
-height:100%;
-
-}
-
-img{
-
-width:100%;
-height:100%;
-object-fit:contain;
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<img src="${image}">
-
-</body>
-
-</html>
-
-`);
+document
+.getElementById(
+'preview'
+)
+.style.display = 'flex';
 
 }
 
@@ -427,6 +489,13 @@ window.open(
 );
 
 },1000);
+
+}
+
+function openInstagramStoryDirect(){
+
+window.location.href =
+'instagram://camera';
 
 }
 
