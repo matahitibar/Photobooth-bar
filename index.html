@@ -174,17 +174,17 @@ object-fit:contain;
 
 position:absolute;
 
-bottom:12px;
+bottom:6px;
 
 left:50%;
 
 transform:translateX(-50%);
 
-width:220px;
+width:170px;
 
-padding:10px 0;
+padding:8px 0;
 
-border-radius:24px;
+border-radius:20px;
 
 border:2px solid white;
 
@@ -194,13 +194,15 @@ backdrop-filter:blur(8px);
 
 color:white;
 
-font-size:12px;
+font-size:11px;
 
 font-weight:600;
 
-letter-spacing:1px;
+letter-spacing:0.5px;
 
-line-height:1.1;
+line-height:1.2;
+
+text-align:center;
 
 }
 
@@ -313,13 +315,86 @@ onclick="closePreview()">
 class="storyButton"
 onclick="openInstagramStory()">
 
-OUVRIR INSTAGRAM STORY
+OUVRIR INSTAGRAM<br>STORY
 
 </button>
 
 </div>
 
 <script>
+
+const language =
+navigator.language || 'fr';
+
+let textHelp =
+'Maintiens l’image → Ajouter aux Photos';
+
+let textStory =
+'OUVRIR INSTAGRAM<br>STORY';
+
+let textBack =
+'← retour';
+
+if(language.startsWith('en')){
+
+textHelp =
+'Hold image → Save to Photos';
+
+textStory =
+'OPEN INSTAGRAM<br>STORY';
+
+textBack =
+'← back';
+
+}
+
+if(language.startsWith('es')){
+
+textHelp =
+'Mantén pulsado → Guardar en Fotos';
+
+textStory =
+'ABRIR INSTAGRAM<br>STORY';
+
+textBack =
+'← volver';
+
+}
+
+if(language.startsWith('it')){
+
+textHelp =
+'Tieni premuto → Salva nelle Foto';
+
+textStory =
+'APRI INSTAGRAM<br>STORY';
+
+textBack =
+'← indietro';
+
+}
+
+if(language.startsWith('de')){
+
+textHelp =
+'Bild gedrückt halten → In Fotos sichern';
+
+textStory =
+'INSTAGRAM STORY<br>ÖFFNEN';
+
+textBack =
+'← zurück';
+
+}
+
+document.querySelector('.help')
+.innerHTML = textHelp;
+
+document.querySelector('.storyButton')
+.innerHTML = textStory;
+
+document.querySelector('.backButton')
+.innerHTML = textBack;
 
 const video =
 document.getElementById(
