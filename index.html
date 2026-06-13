@@ -224,6 +224,36 @@ opacity:0.8;
 
 }
 
+.backButton{
+
+position:absolute;
+
+top:14px;
+
+left:12px;
+
+padding:4px 10px;
+
+border-radius:14px;
+
+border:1.5px solid white;
+
+background:rgba(255,255,255,0.04);
+
+backdrop-filter:blur(6px);
+
+color:white;
+
+font-size:11px;
+
+font-weight:500;
+
+z-index:1000;
+
+letter-spacing:0.5px;
+
+}
+
 </style>
 
 </head>
@@ -268,6 +298,14 @@ id="preview">
 Maintiens l’image → Ajouter aux Photos
 
 </div>
+
+<button
+class="backButton"
+onclick="closePreview()">
+
+← retour
+
+</button>
 
 <img id="previewImage">
 
@@ -424,6 +462,16 @@ document
 'preview'
 )
 .style.display = 'flex';
+
+}
+
+function closePreview(){
+
+document
+.getElementById(
+'preview'
+)
+.style.display = 'none';
 
 }
 
